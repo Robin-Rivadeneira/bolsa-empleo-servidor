@@ -141,6 +141,8 @@ class UserController extends Controller
             $dataUser = $data['user'];
             $dataProfessional = $data['professional'];
             DB::beginTransaction();
+
+
             $user = User::create([
                 'name' => strtoupper($dataUser['name']),
                 'user_name' => $dataUser['user_name'],
@@ -148,6 +150,9 @@ class UserController extends Controller
                 'password' => Hash::make($dataUser['password']),
                 'api_token' => str_random(60),
             ]);
+
+
+
             $user->roles()->attach(1);
             $user->professional()->create([
                 'identity' => $dataProfessional['identity'],

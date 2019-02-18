@@ -2,8 +2,10 @@
 
 use Carbon\Carbon;
 $router->post('/', ['uses' => 'AbilityController@prueba']);
+
+$router->post('/users', ['uses' => 'UsersController@']);
 /* Rutas con autenticacion*/
-$router->group(['middleware' => []], function () use ($router) {
+$router->group(['middleware' => ['auth']], function () use ($router) {
     /* Rutas para los usuarios*/
 
     $router->get('/users', ['uses' => 'UserController@getAllUsers']);
