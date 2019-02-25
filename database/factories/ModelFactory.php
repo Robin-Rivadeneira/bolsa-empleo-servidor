@@ -25,7 +25,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 // Role
 $factory->define(App\Role::class, function (Faker\Generator $faker) {
     return [
-        'description' => $faker->text(rand(32, 10)),
+        'description' => 'Professional',
         'role' => '1',
         'state' => 'ACTIVE',
     ];

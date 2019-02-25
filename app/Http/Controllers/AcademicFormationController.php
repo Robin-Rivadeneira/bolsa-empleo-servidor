@@ -7,7 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Professional;
 use App\AcademicFormation;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+
 
 class AcademicFormationController extends Controller
 {
@@ -85,6 +85,7 @@ class AcademicFormationController extends Controller
                     'professional_degree' => $dataAcademicFormation ['professional_degree'],
                     'registration_date' => $dataAcademicFormation ['registration_date'],
                     'senescyt_code' => $dataAcademicFormation ['senescyt_code'],
+                    'has_titling' => $dataAcademicFormation ['has_titling'],
                 ]);
                 return response()->json($response, 201);
             } else {
@@ -114,6 +115,7 @@ class AcademicFormationController extends Controller
                 'professional_degree' => $dataAcademicFormation ['professional_degree'],
                 'registration_date' => $dataAcademicFormation ['registration_date'],
                 'senescyt_code' => $dataAcademicFormation ['senescyt_code'],
+                'has_titling' => $dataAcademicFormation ['has_titling'],
             ]);
             return response()->json($academicFormation, 201);
         } catch (ModelNotFoundException $e) {

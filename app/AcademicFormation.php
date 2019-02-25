@@ -19,6 +19,7 @@ class AcademicFormation extends Model
         'professional_degree',
         'registration_date',
         'senescyt_code',
+        'has_titling',
         'state',
     ];
 

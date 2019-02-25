@@ -89,13 +89,6 @@ class LanguageController extends Controller
                         'spoken_level' => $dataLanguage ['spoken_level'],
                         'reading_level' => $dataLanguage ['reading_level'],
                     ]);
-
-                    $response = $student->project()->create([
-                        'description' => $dataLanguage ['description'],
-                        'written_level' => $dataLanguage ['written_level'],
-                        'spoken_level' => $dataLanguage ['spoken_level'],
-                        'reading_level' => $dataLanguage ['reading_level'],
-                    ]);
                     return response()->json($response, 201);
                 } else {
                     return response()->json([
