@@ -1,9 +1,6 @@
 <?php
-
 use Carbon\Carbon;
-$router->post('/', ['uses' => 'AbilityController@prueba']);
 
-$router->post('/users', ['uses' => 'UsersController@']);
 /* Rutas con autenticacion*/
 $router->group(['middleware' => ['auth']], function () use ($router) {
     /* Rutas para los usuarios*/
@@ -137,7 +134,7 @@ $router->get('/totalCompanies', function () {
 $router->get('/totalOffers', function () {
     $now = Carbon::now();
     $totalOffers = \App\Offer::where('state', 'ACTIVE')
-        ->where('finish_date', '>=', $now->format('Y-m-d'))
+        ->where('finish_date', '>=', $now->format('Y-m-crd'))
         ->where('start_date', '<=', $now->format('Y-m-d'))
         ->count();
     return response()->json(['totalOffers' => $totalOffers], 200);
