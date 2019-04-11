@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
-use App\Professional;
-use App\AcademicFormation;
 use App\Ability;
-use App\Language;
+use App\AcademicFormation;
+use App\Company;
 use App\Course;
+use App\Language;
+use App\Offer;
+use App\Professional;
 use App\ProfessionalExperience;
 use App\ProfessionalReference;
-use Illuminate\Support\Facades\DB;
-use App\Offer;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-Use Exception;
-Use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-Use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProfessionalController extends Controller
 {
@@ -513,9 +513,9 @@ class ProfessionalController extends Controller
 
     function getAllProfessionals()
     {
-        $offers = Offer::where('state', 'ACTIVE')
-            ->get();
-        return response()->json(['offers' => $offers], 200);
+        $professionals = Professional::with('academicFormations')
+            ->where('professionals.state', 'ACTIVE')->get();
+        return response()->json(['professionals' => $professionals], 200);
 
     }
 

@@ -38,6 +38,7 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
     $router->get('/professionals/companies', ['uses' => 'ProfessionalController@getAppliedCompanies']);
 
 
+
     $router->get('/professionals/{id}', ['uses' => 'ProfessionalController@showProfessional']);
     $router->post('/professionals', ['uses' => 'ProfessionalController@createProfessional']);
     $router->put('/professionals', ['uses' => 'ProfessionalController@updateProfessional']);
@@ -134,7 +135,7 @@ $router->get('/totalCompanies', function () {
 $router->get('/totalOffers', function () {
     $now = Carbon::now();
     $totalOffers = \App\Offer::where('state', 'ACTIVE')
-        ->where('finish_date', '>=', $now->format('Y-m-crd'))
+        ->where('finish_date', '>=', $now->format('Y-m-d'))
         ->where('start_date', '<=', $now->format('Y-m-d'))
         ->count();
     return response()->json(['totalOffers' => $totalOffers], 200);
@@ -152,3 +153,4 @@ $router->get('/oportunities/filter', ['uses' => 'OfferController@filterOffersFie
 $router->post('/postulants/filter', ['uses' => 'ProfessionalController@filterPostulants']);
 $router->get('/postulants/filter', ['uses' => 'ProfessionalController@filterPostulantsFields']);
 /**********************************************************************************************************************/
+$router->get('/professionals', ['uses' => 'ProfessionalController@getAllProfessionals']);
