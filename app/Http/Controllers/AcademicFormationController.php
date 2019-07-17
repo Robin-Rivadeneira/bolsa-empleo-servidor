@@ -91,7 +91,8 @@ class AcademicFormationController extends Controller
             } else {
                 return response()->json(null, 404);
             }
-        } catch (ModelNotFoundException $e) {
+        } catch (
+            ModelNotFoundException $e) {
             return response()->json($e, 405);
         } catch (NotFoundHttpException  $e) {
             return response()->json($e, 405);
