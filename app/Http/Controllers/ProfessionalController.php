@@ -351,6 +351,7 @@ class ProfessionalController extends Controller
         join('academic_formations', 'academic_formations.professional_id', '=', 'professionals.id')
             ->orWhere($dataFilter['conditions'])
             ->where('professionals.state', 'ACTIVE')
+            ->where('professionals.about_me', '<>', '')
             ->where('academic_formations.state', 'ACTIVE')
             ->orderby('professionals.' . $request->field, $request->order)
             ->paginate($request->limit);
@@ -370,6 +371,7 @@ class ProfessionalController extends Controller
     {
         $postulants = Professional::
         join('academic_formations', 'academic_formations.professional_id', '=', 'professionals.id')
+            ->where('professionals.about_me', '<>', '')
             ->where('professionals.state', 'ACTIVE')
             ->where('academic_formations.state', 'ACTIVE')
             ->where('career', 'like', strtoupper($request->filter) . '%')
@@ -488,9 +490,12 @@ class ProfessionalController extends Controller
     /* Metodos para gestionar los datos personales*/
     function getProfessionals(Request $request)
     {
-        $professionals = Professional::with('academicFormations')
+        $professionals = Professional::
+        join('academic_formations', 'academic_formations.professional_id', 'professionals.id')
+            ->with('academicFormations')
             ->where('professionals.state', 'ACTIVE')
-//            ->where('academic_formations.state', 'ACTIVE')
+            ->where('professionals.about_me', '<>', '')
+            ->where('academic_formations.state', 'ACTIVE')
             ->orderby('professionals.' . $request->field, $request->order)
             ->paginate($request->limit);
 
@@ -513,7 +518,10 @@ class ProfessionalController extends Controller
 
     function getAllProfessionals()
     {
-        $professionals = Professional::with('academicFormations')
+        $professionals = Professional::
+        join('academic_formations', 'academic_formations.professional_id', 'professionals.id')
+            ->with('academicFormations')
+            ->where('professionals.about_me', '<>', '')
             ->where('professionals.state', 'ACTIVE')->get();
         return response()->json(['professionals' => $professionals], 200);
 
