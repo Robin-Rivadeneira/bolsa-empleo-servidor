@@ -154,3 +154,5 @@ $router->post('/postulants/filter', ['uses' => 'ProfessionalController@filterPos
 $router->get('/postulants/filter', ['uses' => 'ProfessionalController@filterPostulantsFields']);
 /**********************************************************************************************************************/
 $router->get('/professionals', ['uses' => 'ProfessionalController@getAllProfessionals']);
+
+$router->get('/validate_cedula', ['uses' => 'UserController@validateCedula']);

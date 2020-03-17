@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c1cac8e16d83360e1576d5487d377b8",
+    "content-hash": "dddcc1c0dc486959e7e77892c67d73e7",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -2249,6 +2249,52 @@
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
             "time": "2018-08-07T12:45:11+00:00"
+        },
+        {
+            "name": "tavo1987/ec-validador-cedula-ruc",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tavo1987/ec-validador-cedula-ruc.git",
+                "reference": "379b50bc5dfda20d935df2bdd3c0de94e4fc024e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tavo1987/ec-validador-cedula-ruc/zipball/379b50bc5dfda20d935df2bdd3c0de94e4fc024e",
+                "reference": "379b50bc5dfda20d935df2bdd3c0de94e4fc024e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tavo\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Edwin Ramírez",
+                    "email": "tavo198718@gmail.com",
+                    "homepage": "https://www.facebook.com/edwin.ramirez.923",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Bryan Suárez",
+                    "email": "bryanbolivar.1992@gmail.com"
+                }
+            ],
+            "description": "Validador de RUC y cédula en Ecuador",
+            "homepage": "https://github.com/tavo1987/ec-validador-cedula-ruc",
+            "time": "2018-07-23T02:22:23+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -8,6 +8,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Tavo\ValidadorEc;
 
 class UserController extends Controller
 {
@@ -152,7 +153,6 @@ class UserController extends Controller
             ]);
 
 
-
             $user->roles()->attach(1);
             $user->professional()->create([
                 'identity' => $dataProfessional['identity'],
@@ -289,6 +289,32 @@ class UserController extends Controller
         try {
             $user = User::where('user_name', $userName)->first();
             return response()->json(['email' => $user['email']], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json($e, 405);
+        } catch (NotFoundHttpException  $e) {
+            return response()->json($e, 405);
+        } catch (QueryException  $e) {
+            return response()->json($e, 405);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        } catch (Error $e) {
+            return response()->json($e, 500);
+        }
+    }
+
+    function validateCedula(Request $request)
+    {
+        try {
+            $validador = new ValidadorEc;
+            // validar CI
+            if ($validador->validarCedula($request->cedula) || $validador->validarRucPersonaNatural($request->cedula) ||
+                $validador->validarRucSociedadPrivada($request->cedula) || $validador->validarRucSociedadPublica($request->cedula)
+            ) {
+                return response()->json(['response' => true], 200);
+            } else {
+                return response()->json(['response' => true, 'error' => $validador->getError()], 200);
+            }
+
         } catch (ModelNotFoundException $e) {
             return response()->json($e, 405);
         } catch (NotFoundHttpException  $e) {
