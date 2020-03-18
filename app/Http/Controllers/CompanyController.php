@@ -305,18 +305,20 @@ class CompanyController extends Controller
         try {
             $data = $request->json()->all();
             $dataCompany = $data['company'];
-            $response = Company::findOrFail($dataCompany['id'])->update([
-                'identity' => $dataCompany['identity'],
-                'email' => strtolower($dataCompany['email']),
+            $company = Company::findOrFail($dataCompany['id']);
+            $company->update([
+                'identity' => trim($dataCompany['identity']),
+                'email' => strtolower(trim($dataCompany['email'])),
                 'nature' => $dataCompany['nature'],
-                'trade_name' => strtoupper($dataCompany['trade_name']),
-                'comercial_activity' => strtoupper($dataCompany['comercial_activity']),
-                'phone' => $dataCompany['phone'],
-                'cell_phone' => $dataCompany['cell_phone'],
-                'web_page' => strtolower($dataCompany['web_page']),
-                'address' => strtoupper($dataCompany['address']),
+                'trade_name' => strtoupper(trim($dataCompany['trade_name'])),
+                'comercial_activity' => strtoupper(trim($dataCompany['comercial_activity'])),
+                'phone' => trim($dataCompany['phone']),
+                'cell_phone' => trim($dataCompany['cell_phone']),
+                'web_page' => strtolower(trim($dataCompany['web_page'])),
+                'address' => strtoupper(trim($dataCompany['address'])),
             ]);
-            return response()->json($response, 201);
+            $company->user()->update(['email' => strtolower(trim($dataCompany['email']))]);
+            return response()->json($company, 201);
         } catch (ModelNotFoundException $e) {
             return response()->json($e, 405);
         } catch (NotFoundHttpException  $e) {

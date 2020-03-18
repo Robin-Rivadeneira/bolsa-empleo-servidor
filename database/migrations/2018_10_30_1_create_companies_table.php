@@ -20,8 +20,8 @@ class CreateCompaniesTable extends Migration
             $table->string('identity');
             $table->string('nature');
             $table->string('email');
-            $table->string('trade_name');
-            $table->string('comercial_activity');
+            $table->string('trade_name',300);
+            $table->string('comercial_activity',500);
             $table->string('phone');
             $table->string('cell_phone')->nullable();
             $table->string('web_page')->nullable();

@@ -152,20 +152,19 @@ class UserController extends Controller
             ]);
 
 
-
             $user->roles()->attach(1);
             $user->professional()->create([
                 'identity' => $dataProfessional['identity'],
-                'first_name' => strtoupper($dataProfessional['first_name']),
-                'last_name' => strtoupper($dataProfessional['last_name']),
-                'email' => strtolower($dataProfessional['email']),
+                'first_name' => strtoupper(trim($dataProfessional['first_name'])),
+                'last_name' => strtoupper(trim($dataProfessional['last_name'])),
+                'email' => strtolower(trim($dataProfessional['email'])),
                 'nationality' => strtoupper($dataProfessional['nationality']),
                 'civil_state' => strtoupper($dataProfessional['civil_state']),
                 'birthdate' => $dataProfessional['birthdate'],
                 'gender' => strtoupper($dataProfessional['gender']),
-                'phone' => $dataProfessional['phone'],
-                'address' => strtoupper($dataProfessional['address']),
-                'about_me' => strtoupper($dataProfessional['about_me']),
+                'phone' => trim($dataProfessional['phone']),
+                'address' => trim(strtoupper($dataProfessional['address'])),
+                'about_me' => trim(strtoupper($dataProfessional['about_me'])),
             ]);
             DB::commit();
             return $this->login($request);
@@ -190,23 +189,23 @@ class UserController extends Controller
             $dataCompany = $data['company'];
             DB::beginTransaction();
             $user = User::create([
-                'name' => strtoupper($dataUser['name']),
-                'user_name' => $dataUser['user_name'],
-                'email' => $dataUser['email'],
+                'name' => strtoupper(trim($dataUser['name'])),
+                'user_name' => trim($dataUser['user_name']),
+                'email' => strtolower(trim($dataUser['email'])),
                 'password' => Hash::make($dataUser['password']),
                 'api_token' => str_random(60),
             ]);
             $user->roles()->attach(2);
             $user->company()->create([
-                'identity' => $dataCompany['identity'],
-                'email' => strtolower($dataCompany['email']),
+                'identity' => trim($dataCompany['identity']),
+                'email' => strtolower(trim($dataCompany['email'])),
                 'nature' => $dataCompany['nature'],
-                'trade_name' => strtoupper($dataCompany['trade_name']),
-                'comercial_activity' => strtoupper($dataCompany['comercial_activity']),
-                'phone' => $dataCompany['phone'],
-                'cell_phone' => $dataCompany['cell_phone'],
-                'web_page' => strtolower($dataCompany['web_page']),
-                'address' => strtoupper($dataCompany['address']),
+                'trade_name' => strtoupper(trim($dataCompany['trade_name'])),
+                'comercial_activity' => strtoupper(trim($dataCompany['comercial_activity'])),
+                'phone' => trim($dataCompany['phone']),
+                'cell_phone' => trim($dataCompany['cell_phone']),
+                'web_page' => strtolower(trim($dataCompany['web_page'])),
+                'address' => strtoupper(trim($dataCompany['address'])),
             ]);
             DB::commit();
             return $this->login($request);

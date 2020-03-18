@@ -495,7 +495,7 @@ class ProfessionalController extends Controller
             ->with('academicFormations')
             ->where('professionals.state', 'ACTIVE')
             ->where('professionals.about_me', '<>', '')
-            ->where('academic_formations.state', 'ACTIVE')
+//            ->where('academic_formations.state', 'ACTIVE')
             ->orderby('professionals.' . $request->field, $request->order)
             ->paginate($request->limit);
 
@@ -530,7 +530,7 @@ class ProfessionalController extends Controller
     function showProfessional($id)
     {
         try {
-            $professional = Professional::where('user_id', $id)->first();
+            $professional = Professional::where('user_id', $id)->with('academicFormations')->first();
             return response()->json(['professional' => $professional], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json($e, 405);
@@ -550,20 +550,25 @@ class ProfessionalController extends Controller
         try {
             $data = $request->json()->all();
             $dataProfessional = $data['professional'];
-            $professional = Professional::findOrFail($dataProfessional['id'])->update([
-                'identity' => $dataProfessional['identity'],
-                'first_name' => strtoupper($dataProfessional['first_name']),
-                'last_name' => strtoupper($dataProfessional['last_name']),
-                'email' => strtolower($dataProfessional['email']),
+
+            $professional = Professional::findOrFail($dataProfessional['id']);
+            $professional->update([
+                'identity' => trim($dataProfessional['identity']),
+                'first_name' => strtoupper(trim($dataProfessional['first_name'])),
+                'last_name' => strtoupper(trim($dataProfessional['last_name'])),
+                'email' => strtolower(trim($dataProfessional['email'])),
                 'nationality' => strtoupper($dataProfessional['nationality']),
                 'civil_state' => strtoupper($dataProfessional['civil_state']),
                 'birthdate' => $dataProfessional['birthdate'],
                 'gender' => strtoupper($dataProfessional['gender']),
-                'phone' => $dataProfessional['phone'],
-                'address' => strtoupper($dataProfessional['address']),
-                'about_me' => strtoupper($dataProfessional['about_me']),
+                'phone' => trim($dataProfessional['phone']),
+                'address' => strtoupper(trim($dataProfessional['address'])),
+                'about_me' => strtoupper(trim($dataProfessional['about_me'])),
             ]);
-            return response()->json($professional, 201);
+            $professional->user()->update(['email' => strtolower(trim($dataProfessional['email']))]);
+
+
+            return response()->json('asd', 201);
         } catch (ModelNotFoundException $e) {
             return response()->json('ModelNotFound', 405);
         } catch (NotFoundHttpException  $e) {

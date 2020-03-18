@@ -35,4 +35,9 @@ class Company extends Model
     {
         return $this->belongsToMany('App\Professional')->withTimestamps();
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
