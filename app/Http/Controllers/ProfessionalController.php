@@ -491,7 +491,7 @@ class ProfessionalController extends Controller
     function getProfessionals(Request $request)
     {
         $professionals = Professional::
-        join('academic_formations', 'academic_formations.professional_id', 'professionals.id')
+        join('academic_formations', 'academic_formations.professional_id', '=', 'professionals.id')
             ->with('academicFormations')
             ->where('professionals.state', 'ACTIVE')
             ->where('professionals.about_me', '<>', '')

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateProfessionalsTable extends Migration
 {
@@ -26,8 +26,8 @@ class CreateProfessionalsTable extends Migration
             $table->date('birthdate');
             $table->string('gender');
             $table->string('phone');
-            $table->string('address');
-            $table->string('about_me',300)->nullable();
+            $table->string('address', 300);
+            $table->string('about_me', 300)->nullable();
             $table->string('state')->default('ACTIVE');
             $table->timestamps();
         });
